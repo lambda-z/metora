@@ -1,3 +1,4 @@
+from adapters.notification.base import NotificationMessage
 from core.commands import ResourceCommand, ResourceRef, RequestContext
 from core.registry import MetoraRegistry
 from core.results import ActionResult, ActionResultCode
@@ -10,6 +11,16 @@ from usecases.base import BaseUseCase
 class DemoUseCase(BaseUseCase):
 
     def execute(self, command: ResourceCommand) -> ActionResult:
+
+        # 获取engine
+        notification_engine: NotificationEngine = self.metora.engine.notification
+        print(f"Got notification_engine: {notification_engine}")
+        notification_engine.send("wechat", NotificationMessage(
+            receiver="1234567890",
+            title="Demo notification",
+            content="This is a demo notification",
+        ))
+
         return ActionResult(
             ok=True,
             code=ActionResultCode.OK,
@@ -32,7 +43,7 @@ class DemoUseCase(BaseUseCase):
 
 registry = MetoraRegistry()
 registry.register_usecase_class("demo.submit", DemoUseCase)
-registry.register_engine("notification", NotificationEngine)  # 这里注册一个空对象作为示例
+registry.register_engine("notification", NotificationEngine(registry))
 
 
 def run():
