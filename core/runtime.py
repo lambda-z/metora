@@ -1,18 +1,18 @@
-from __future__ import annotations
+# metora/core/runtime.py
 
-from .commands import ResourceCommand
-from .results import ActionResult
-from .registry import (MetoraRegistry)
+from core.context import MetoraContext
+from core.results import ActionResult
 
 
 class MetoraRuntime:
-    def __init__(self, registry: MetoraRegistry):
+    def __init__(self, registry):
         self.registry = registry
+        self.context = MetoraContext(registry)
 
-    def execute(self, command: ResourceCommand) -> ActionResult:
-        usecase = self.registry.get_usecase(command.action)
+    def execute(self, command):
+        usecase_cls = self.registry.get_usecase_class(command.action)
 
-        if usecase is None:
+        if not usecase_cls:
             return ActionResult(
                 ok=False,
                 code="ACTION_NOT_SUPPORTED",
@@ -21,32 +21,6 @@ class MetoraRuntime:
                 http_status=400,
             )
 
-        try:
-            return usecase.run(command)
+        usecase = usecase_cls(metora=self.context)
 
-        except PermissionError as error:
-            return ActionResult(
-                ok=False,
-                code="PERMISSION_DENIED",
-                message=str(error),
-                action=command.action,
-                http_status=403,
-            )
-
-        except ValueError as error:
-            return ActionResult(
-                ok=False,
-                code="BAD_REQUEST",
-                message=str(error),
-                action=command.action,
-                http_status=400,
-            )
-
-        except Exception as error:
-            return ActionResult(
-                ok=False,
-                code="INTERNAL_ERROR",
-                message=str(error),
-                action=command.action,
-                http_status=500,
-            )
+        return usecase.run(command)

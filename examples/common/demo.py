@@ -3,6 +3,10 @@ from core.registry import MetoraRegistry
 from core.runtime import MetoraRuntime
 
 registry = MetoraRegistry()
+
+
+
+
 runtime = MetoraRuntime(registry)
 
 command = ResourceCommand(
