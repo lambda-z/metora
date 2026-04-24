@@ -1,5 +1,3 @@
-from dataclasses import dataclass
-
 from core.commands import ResourceCommand, ResourceRef, RequestContext
 from core.registry import MetoraRegistry
 from core.results import ActionResult
@@ -10,7 +8,7 @@ from usecases.base import BaseUseCase
 # 实现一个UseCase
 class DemoUseCase(BaseUseCase):
 
-    def execute(self, command) -> ActionResult:
+    def execute(self, command: ResourceCommand) -> ActionResult:
         return ActionResult(
             ok=True,
             code="OK",
