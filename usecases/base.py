@@ -1,76 +1,18 @@
+# metora/usecases/base.py
 
-from __future__ import annotations
-
-from abc import ABC, abstractmethod
-from typing import Any
-
-from core.commands import ResourceCommand
-from core.results import ActionResult
+from core.context import MetoraContext
 
 
-class BaseUseCase(ABC):
-    use_transaction: bool = False
+class BaseUseCase:
+    def __init__(self, metora: MetoraContext):
+        self.metora = metora
 
-    def run(self, command: ResourceCommand) -> ActionResult:
-        resource = self.load_resource(command)
+    @property
+    def engine(self):
+        return self.metora.engine
 
-        auth_result = self.authorize(command, resource)
-        if auth_result is not None:
-            return auth_result
+    def run(self, command):
+        return self.execute(command)
 
-        validate_result = self.validate(command, resource)
-        if validate_result is not None:
-            return validate_result
-
-        self.before_execute(command, resource)
-
-        core_result = self.execute_core(command, resource)
-
-        self.after_execute(command, resource, core_result)
-
-        events = self.emit_events(command, resource, core_result)
-
-        self.audit(command, resource, core_result)
-
-        return self.build_response(command, resource, core_result, events)
-
-    @abstractmethod
-    def load_resource(self, command: ResourceCommand) -> Any:
-        raise NotImplementedError
-
-    def authorize(self, command: ResourceCommand, resource: Any) -> ActionResult | None:
-        return None
-
-    def validate(self, command: ResourceCommand, resource: Any) -> ActionResult | None:
-        return None
-
-    def before_execute(self, command: ResourceCommand, resource: Any) -> None:
-        pass
-
-    @abstractmethod
-    def execute_core(self, command: ResourceCommand, resource: Any) -> Any:
-        raise NotImplementedError
-
-    def after_execute(self, command: ResourceCommand, resource: Any, core_result: Any) -> None:
-        pass
-
-    def emit_events(
-        self,
-        command: ResourceCommand,
-        resource: Any,
-        core_result: Any,
-    ) -> list[dict[str, Any]]:
-        return []
-
-    def audit(self, command: ResourceCommand, resource: Any, core_result: Any) -> None:
-        pass
-
-    @abstractmethod
-    def build_response(
-        self,
-        command: ResourceCommand,
-        resource: Any,
-        core_result: Any,
-        events: list[dict[str, Any]],
-    ) -> ActionResult:
+    def execute(self, command):
         raise NotImplementedError
