@@ -44,7 +44,6 @@ def run():
     print(result.to_dict())
 
 
-
 if __name__ == '__main__':
 
     run()

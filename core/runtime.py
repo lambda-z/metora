@@ -1,7 +1,7 @@
 # metora/core/runtime.py
-
+from core.commands import ResourceCommand
 from core.context import MetoraContext
-from core.results import ActionResult
+from core.results import ActionResult, ActionResultCode
 
 
 class MetoraRuntime:
@@ -9,13 +9,13 @@ class MetoraRuntime:
         self.registry = registry
         self.context = MetoraContext(registry)
 
-    def execute(self, command):
+    def execute(self, command: ResourceCommand) -> ActionResult:
         usecase_cls = self.registry.get_usecase_class(command.action)
 
         if not usecase_cls:
             return ActionResult(
                 ok=False,
-                code="ACTION_NOT_SUPPORTED",
+                code=ActionResultCode.ACTION_NOT_SUPPORTED,
                 message=f"Unsupported action: {command.action}",
                 action=command.action,
                 http_status=400,

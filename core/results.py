@@ -1,13 +1,19 @@
 from __future__ import annotations
 
 from dataclasses import dataclass, field
+from enum import StrEnum
 from typing import Any
+
+
+class ActionResultCode(StrEnum):
+    OK = "OK"
+    ACTION_NOT_SUPPORTED = "ACTION_NOT_SUPPORTED"
 
 
 @dataclass
 class ActionResult:
     ok: bool
-    code: str
+    code: ActionResultCode
     message: str
 
     action: str | None = None
