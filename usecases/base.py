@@ -1,6 +1,7 @@
 # metora/usecases/base.py
-
+from core.commands import ResourceCommand
 from core.context import MetoraContext
+from core.results import ActionResult
 
 
 class BaseUseCase:
@@ -11,8 +12,8 @@ class BaseUseCase:
     def engine(self):
         return self.metora.engine
 
-    def run(self, command):
+    def run(self, command: ResourceCommand):
         return self.execute(command)
 
-    def execute(self, command):
+    def execute(self, command: ResourceCommand) -> ActionResult:
         raise NotImplementedError
