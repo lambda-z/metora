@@ -1,7 +1,8 @@
 from core.commands import ResourceCommand, ResourceRef, RequestContext
 from core.registry import MetoraRegistry
-from core.results import ActionResult
+from core.results import ActionResult, ActionResultCode
 from core.runtime import MetoraRuntime
+from engines.notification import NotificationEngine
 from usecases.base import BaseUseCase
 
 
@@ -11,16 +12,16 @@ class DemoUseCase(BaseUseCase):
     def execute(self, command: ResourceCommand) -> ActionResult:
         return ActionResult(
             ok=True,
-            code="OK",
+            code=ActionResultCode.OK,
             message="Demo use case executed successfully",
             action=command.action,
             resource={
-                "type": command.resource.type,
-                "id": command.resource.id,
+                "type": command.resource_ref.type,
+                "id": command.resource_ref.id,
                 "status": "submitted",
             },
             result={
-                "businessId": command.resource.id,
+                "businessId": command.resource_ref.id,
                 "nextNode": "manager_approve",
             },
             effects={
@@ -31,12 +32,13 @@ class DemoUseCase(BaseUseCase):
 
 registry = MetoraRegistry()
 registry.register_usecase_class("demo.submit", DemoUseCase)
+registry.register_engine("notification", NotificationEngine)  # 这里注册一个空对象作为示例
 
 
 def run():
     command = ResourceCommand(
         action="demo.submit",
-        resource=ResourceRef(type="demo", id=1),
+        resource_ref=ResourceRef(type="demo", id=1),
         context=RequestContext(actor_id=1),
     )
     runtime = MetoraRuntime(registry)

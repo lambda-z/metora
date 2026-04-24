@@ -35,12 +35,12 @@ class SubmitBusinessUseCase(BaseUseCase):
             message="业务提交成功",
             action=command.action,
             resource={
-                "type": command.resource.type,
-                "id": command.resource.id,
+                "type": command.resource_ref.type,
+                "id": command.resource_ref.id,
                 "status": "submitted",
             },
             result={
-                "businessId": command.resource.id,
+                "businessId": command.resource_ref.id,
                 "nextNode": "manager_approve",
             },
             effects={

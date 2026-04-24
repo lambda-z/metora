@@ -12,7 +12,7 @@ from core.resources import ResourceRef
 @dataclass
 class ResourceCommand:
     action: str
-    resource: ResourceRef
+    resource_ref: ResourceRef
     context: RequestContext
     data: dict[str, Any] = field(default_factory=dict)
     options: dict[str, Any] = field(default_factory=dict)
