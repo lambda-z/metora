@@ -12,8 +12,9 @@ class DemoUseCase(BaseUseCase):
             "message": f"Hello, {command.context.actor_id}! You have submitted business {command.resource.id}."
         }
 
-
 registry = MetoraRegistry()
+registry.register_usecase_class("demo.submit", DemoUseCase)
+
 
 def run():
     command = ResourceCommand(
