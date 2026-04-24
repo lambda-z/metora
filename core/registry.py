@@ -2,6 +2,8 @@ from __future__ import annotations
 
 from typing import Any
 
+from usecases.base import BaseUseCase
+
 
 class MetoraRegistry:
     def __init__(self):
@@ -18,10 +20,10 @@ class MetoraRegistry:
             raise KeyError(f"Engine not registered: {name}")
         return self.engines[name]
 
-    def register_usecase(self, action: str, usecase: Any) -> None:
+    def register_usecase_class(self, action: str, usecase: BaseUseCase) -> None:
         self.usecases[action] = usecase
 
-    def get_usecase(self, action: str) -> Any | None:
+    def get_usecase_class(self, action: str) -> Any | None:
         return self.usecases.get(action)
 
     def register_adapter(self, capability: str, name: str, adapter: Any) -> None:

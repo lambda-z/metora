@@ -41,21 +41,3 @@ class SubmitBusinessUseCase(BaseUseCase):
                 "todos": True,
             },
         )
-
-
-class CreateBusinessUseCase:
-    def run(self, command):
-        return ActionResult(
-            ok=True,
-            code="OK",
-            message="业务创建成功",
-            action=command.action,
-            resource={
-                "type": "business",
-                "id": 1,
-                "status": "draft",
-            },
-            result={
-                "businessId": 1,
-            },
-        )
