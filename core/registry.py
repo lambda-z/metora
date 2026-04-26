@@ -26,8 +26,8 @@ class MetoraRegistry:
     def get_usecase_class(self, action: str) -> Any | None:
         return self.usecases.get(action)
 
-    def register_provider(self, capability: str, name: str, adapter: Any) -> None:
-        self.providers[(capability, name)] = adapter
+    def register_provider(self, capability: str, name: str, provider: Any) -> None:
+        self.providers[(capability, name)] = provider
 
     def get_provider(self, capability: str, name: str) -> Any:
         key = (capability, name)

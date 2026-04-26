@@ -48,13 +48,13 @@ class EngineAccessor:
         return self.registry.get_engine(name)
 
 
-class AdapterAccessor:
+class ProviderAccessor:
     """
-    Adapter 快捷访问器。
+    Provider 快捷访问器。
 
     允许：
-        self.context.adapter.get("notification", "wechat")
-        self.context.adapter.get("storage", "oss")
+        self.context.provider.get("notification", "wechat")
+        self.context.provider.get("storage", "oss")
     """
 
     def __init__(self, registry):
@@ -91,7 +91,7 @@ class MetoraContext:
     def __init__(self, registry):
         self.registry = registry
         self.engine = EngineAccessor(registry)
-        self.adapter = AdapterAccessor(registry)
+        self.adapter = ProviderAccessor(registry)
         self.persistence = PersistenceAccessor(registry)
 
     def get_engine(self, name: str):

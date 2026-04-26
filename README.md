@@ -51,3 +51,7 @@ def send(self, channel: str, message: NotificationMessage):
 ```
 
 # 4. UseCase
+
+
+
+# 5. Core
