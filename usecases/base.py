@@ -1,9 +1,6 @@
 # metora/usecases/base.py
 
 from __future__ import annotations
-
-from typing import Any
-
 from core.commands import ResourceCommand
 from core.context import MetoraContext
 from core.resources import Resource
