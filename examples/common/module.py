@@ -1,8 +1,8 @@
 from typing import Any
 
-from core.commands import ResourceCommand
-from core.results import ActionResult
-from usecases.base import BaseUseCase
+from packages.metora.core.commands import ResourceCommand
+from packages.metora.core.results import ActionResult
+from packages.metora.usecases import BaseUseCase
 
 
 class SubmitBusinessUseCase(BaseUseCase):

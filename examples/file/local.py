@@ -4,12 +4,12 @@
 import json
 from pathlib import Path
 
-from core.context import MetoraContext, RequestContext
-from core.registry import MetoraRegistry
-from core.resources import ResourceRef
-from engines.file import FileEngine
-from providers.file.local import LocalFileProvider
-from providers.storage.local import LocalStorageProvider
+from packages.metora.core.context import MetoraContext, RequestContext
+from packages.metora.core.registry import MetoraRegistry
+from packages.metora.core.resources import ResourceRef
+from packages.metora.engines import FileEngine
+from packages.metora.providers import LocalFileProvider
+from packages.metora.providers.storage.local import LocalStorageProvider
 
 
 def main():
