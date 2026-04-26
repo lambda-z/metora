@@ -4,6 +4,8 @@ from __future__ import annotations
 from dataclasses import dataclass, field
 from typing import Any
 
+from core.resources import ResourceRef
+
 
 @dataclass
 class RequestContext:
@@ -80,6 +82,36 @@ class PersistenceAccessor:
         return self.registry.get_persistence(name)
 
 
+class ResourceAccessor:
+    """
+    Resource 解析访问器。
+
+    用于把 ResourceRef 转换成运行时 Resource。
+    """
+
+    def __init__(self, registry):
+        self.registry = registry
+
+    def resolve(self, resource_ref: ResourceRef):
+        """
+        根据 resource_ref 解析 Resource。
+
+        resource_ref:
+            ResourceRef(type="business", id=10001)
+            ResourceRef(type="task", id=50001)
+            ResourceRef(type="form", id=30001)
+        """
+
+        engine = self.registry.get_engine(resource_ref.type)
+
+        if not hasattr(engine, "resolve_resource"):
+            raise RuntimeError(
+                f"Engine '{resource_ref.type}' does not support resolve_resource()"
+            )
+
+        return engine.resolve_resource(resource_ref.id)
+
+
 class MetoraContext:
     """
     Metora 运行时上下文。
@@ -91,13 +123,14 @@ class MetoraContext:
     def __init__(self, registry):
         self.registry = registry
         self.engine = EngineAccessor(registry)
-        self.adapter = ProviderAccessor(registry)
+        self.provider = ProviderAccessor(registry)
         self.persistence = PersistenceAccessor(registry)
+        self.resource = ResourceAccessor(registry)
 
     def get_engine(self, name: str):
         return self.registry.get_engine(name)
 
-    def get_adapter(self, capability: str, name: str):
+    def get_provider(self, capability: str, name: str):
         return self.registry.get_provider(capability, name)
 
     def get_persistence(self, name: str):
