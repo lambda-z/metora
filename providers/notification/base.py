@@ -1,10 +1,9 @@
 from __future__ import annotations
 
-from abc import abstractmethod
 from dataclasses import dataclass, field
-from typing import Any
+from typing import Any, Protocol
 
-from providers.base import AdapterBase, AdapterResult
+from providers.base import ProviderResult
 
 
 @dataclass
@@ -15,9 +14,8 @@ class NotificationMessage:
     data: dict[str, Any] = field(default_factory=dict)
 
 
-class NotificationAdapterBase(AdapterBase):
+class NotificationProviderProtocol(Protocol):
     capability = "notification"
 
-    @abstractmethod
-    def send(self, message: NotificationMessage) -> AdapterResult:
+    def send(self, message: NotificationMessage) -> ProviderResult:
         raise NotImplementedError

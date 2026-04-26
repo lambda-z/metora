@@ -6,7 +6,7 @@ from typing import Any
 
 
 @dataclass
-class AdapterResult:
+class ProviderResult:
     """
     Adapter 执行结果对象。
 
@@ -198,7 +198,7 @@ class AdapterBase(ABC):
         """
         pass
 
-    def health_check(self) -> AdapterResult:
+    def health_check(self) -> ProviderResult:
         """
         检查 Adapter 当前是否可用。
 
@@ -245,7 +245,7 @@ class AdapterBase(ABC):
             直接返回健康状态。
             子类如果有真实连接检查需求，应覆盖该方法。
         """
-        return AdapterResult(
+        return ProviderResult(
             ok=True,
             code="OK",
             message="Adapter is healthy",

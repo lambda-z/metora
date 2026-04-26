@@ -3,7 +3,7 @@
 from __future__ import annotations
 
 from engines.base import BaseEngine
-from providers.notification.base import NotificationMessage, NotificationAdapterBase
+from providers.notification.base import NotificationMessage, NotificationProviderProtocol
 
 
 class NotificationEngine(BaseEngine):
@@ -13,9 +13,9 @@ class NotificationEngine(BaseEngine):
         if not self.registry:
             raise RuntimeError("NotificationEngine requires registry")
 
-        adapter: NotificationAdapterBase = self.registry.get_provider(
+        provider: NotificationProviderProtocol = self.registry.get_provider(
             capability="notification",
             name=channel,
         )
 
-        return adapter.send(message)
+        return provider.send(message)
