@@ -4,7 +4,7 @@ from abc import abstractmethod
 from dataclasses import dataclass, field
 from typing import Any
 
-from provider.base import AdapterBase, AdapterResult
+from providers.base import AdapterBase, AdapterResult
 
 
 @dataclass

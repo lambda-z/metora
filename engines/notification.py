@@ -3,7 +3,7 @@
 from __future__ import annotations
 
 from engines.base import BaseEngine
-from provider.notification.base import NotificationMessage, NotificationAdapterBase
+from providers.notification.base import NotificationMessage, NotificationAdapterBase
 
 
 class NotificationEngine(BaseEngine):
