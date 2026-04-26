@@ -1,4 +1,4 @@
-from adapters.notification.base import NotificationMessage
+from provider.notification.base import NotificationMessage
 from core.commands import ResourceCommand, ResourceRef, RequestContext
 from core.registry import MetoraRegistry
 from core.results import ActionResult, ActionResultCode

@@ -61,7 +61,7 @@ class AdapterAccessor:
         self.registry = registry
 
     def get(self, capability: str, name: str):
-        return self.registry.get_adapter(capability, name)
+        return self.registry.get_provider(capability, name)
 
 
 class PersistenceAccessor:
@@ -98,7 +98,7 @@ class MetoraContext:
         return self.registry.get_engine(name)
 
     def get_adapter(self, capability: str, name: str):
-        return self.registry.get_adapter(capability, name)
+        return self.registry.get_provider(capability, name)
 
     def get_persistence(self, name: str):
         return self.registry.get_persistence(name)

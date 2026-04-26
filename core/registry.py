@@ -9,7 +9,7 @@ class MetoraRegistry:
     def __init__(self):
         self.engines: dict[str, Any] = {}
         self.usecases: dict[str, Any] = {}
-        self.adapters: dict[tuple[str, str], Any] = {}
+        self.providers: dict[tuple[str, str], Any] = {}
         self.hooks: dict[tuple[str, str], list[Any]] = {}
 
     def register_engine(self, name: str, engine: Any) -> None:
@@ -26,16 +26,16 @@ class MetoraRegistry:
     def get_usecase_class(self, action: str) -> Any | None:
         return self.usecases.get(action)
 
-    def register_adapter(self, capability: str, name: str, adapter: Any) -> None:
-        self.adapters[(capability, name)] = adapter
+    def register_provider(self, capability: str, name: str, adapter: Any) -> None:
+        self.providers[(capability, name)] = adapter
 
-    def get_adapter(self, capability: str, name: str) -> Any:
+    def get_provider(self, capability: str, name: str) -> Any:
         key = (capability, name)
 
-        if key not in self.adapters:
-            raise KeyError(f"Adapter not registered: {capability}.{name}")
+        if key not in self.providers:
+            raise KeyError(f"Provider not registered: {capability}.{name}")
 
-        return self.adapters[key]
+        return self.providers[key]
 
     def register_hook(self, business_type: str, hook_name: str, handler: Any) -> None:
         key = (business_type, hook_name)
