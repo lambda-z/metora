@@ -1,0 +1,31 @@
+{
+  "files": [
+    {
+      "id": "9f1e4618-6c1f-4d37-83f1-5e9427b57098",
+      "file_name": "sample.txt",
+      "file_key": "business/10001/bc7111d9-86a5-4ee2-b3e0-1ba685395a0a.txt",
+      "content_type": "text/plain",
+      "size": 64,
+      "storage": "local",
+      "status": "uploaded",
+      "created_by_id": 1,
+      "created_at": "2026-04-26T23:28:42.511635",
+      "updated_at": "2026-04-26T23:28:42.512196",
+      "metadata": {
+        "scene": "demo",
+        "confirmed": true
+      }
+    }
+  ],
+  "bindings": [
+    {
+      "id": "aa6a74f3-8513-491a-8a4a-18d28615cbf0",
+      "file_id": "9f1e4618-6c1f-4d37-83f1-5e9427b57098",
+      "resource_type": "business",
+      "resource_id": 10001,
+      "usage": "attachment",
+      "created_by_id": 1,
+      "created_at": "2026-04-26T23:28:42.512322"
+    }
+  ]
+}
