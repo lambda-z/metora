@@ -52,17 +52,34 @@ def send(self, channel: str, message: NotificationMessage):
 
 ## 3.2. WorkflowEngine
 
+WorkflowEngine 是 Metora 中负责流程定义、流程实例、节点流转和任务生成的引擎，可用于实现审批流、办理流、归档流、整改流等业务流程。
+WorkflowEngine 是流程流转引擎，审批流是它最典型的使用场景。
 
 ## 3.3 FileEngine
 
+## 3.4 AuditEngine
 
-WorkflowEngine 是 Metora 中负责流程定义、流程实例、节点流转和任务生成的引擎，可用于实现审批流、办理流、归档流、整改流等业务流程。
+## 3.5 AnalyticsEngine
+AnalyticsEngine 是 Metora 的产品行为分析引擎，用于记录用户如何使用 Resource、Action、Task、Form、Conversation 等能力；具体写入数据库、Kafka、PostHog、神策等，由 AnalyticsProvider 实现。
 
-WorkflowEngine 是流程流转引擎，审批流是它最典型的使用场景。
+## 3.6 PermissionEngine
 
+
+## 3.7 OutboxEngine
+OutboxEngine 是 Metora 的事件发件箱引擎，负责把业务动作产生的事件可靠地记录下来，并追踪这些事件是否已经发布到 Stream / Worker / 外部系统。
+
+**职责**：
+- 创建事件记录
+- 查询待发布事件
+- 标记事件发布中
+- 标记事件发布成功
+- 标记事件发布失败
+- 记录重试次数
+- 记录错误原因
+- 计算下次重试时间
+- 把事件交给 StreamProvider 发布
 
 # 4. UseCase
-
 
 
 # 5. Core
