@@ -1,0 +1,50 @@
+[project]
+name = "metora-django"
+version = "0.1.0"
+description = "A resource-driven internal control runtime framework."
+readme = "README.md"
+requires-python = ">=3.11"
+authors = [
+  { name = "Metora Team" }
+]
+dependencies = []
+
+[project.optional-dependencies]
+django = [
+  "django>=4.2",
+  "djangorestframework>=3.14"
+]
+fastapi = [
+  "fastapi>=0.110",
+  "uvicorn>=0.27"
+]
+flask = [
+  "flask>=3.0"
+]
+sqlalchemy = [
+  "sqlalchemy>=2.0"
+]
+crypto = [
+  "cryptography>=42.0"
+]
+dev = [
+  "pytest>=8.0",
+  "ruff>=0.4",
+  "mypy>=1.8"
+]
+
+[build-system]
+requires = ["setuptools>=69", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[tool.setuptools.packages.find]
+include = ["metora*"]
+
+[tool.ruff]
+line-length = 100
+target-version = "py311"
+
+[tool.mypy]
+python_version = "3.11"
+ignore_missing_imports = true
+strict = false
